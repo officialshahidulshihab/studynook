@@ -14,7 +14,7 @@ const WhyStudy = () => {
           <h2 className="text-[#f0ebe0] text-4xl">
             Everything you need to focus
           </h2>
-          <div className="w-[650px] mx-auto">
+          <div className="w-162.5 mx-auto">
             <p className="font-plus_jakarta text-[#527c74]   ">
               Built specifically for academic environments — with the
               reliability and elegance that serious study demands.
