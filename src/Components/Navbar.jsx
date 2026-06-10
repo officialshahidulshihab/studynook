@@ -7,9 +7,12 @@ import { MdOutlinePolymer } from "react-icons/md";
 import { usePathname } from "next/navigation";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const pathName=usePathname();
+  const pathName = usePathname();
 
-  const linkClass=(path)=>pathName===path?"font-medium text-[#C9A84C]":"text-[#727971]";
+  const linkClass = (path) => {
+    return pathName === path ? "font-medium text-[#C9A84C]" : "text-[#727971]";
+  };
+
   
 
   return (
@@ -48,19 +51,39 @@ const Navbar = () => {
           </Button>
           <div className="flex items-center gap-3">
             <MdOutlinePolymer className="text-[#c7a64b]" />
-           <Link href="/" className="no-underline hover:no-underline decoration-transparent"> <p className="font-bold font-playfair text-xl"><span className="text-white">Study</span><span className="text-[#c7a64b]">Nook</span></p></Link>
+            <Link
+              href="/"
+              className="no-underline hover:no-underline decoration-transparent"
+            >
+              {" "}
+              <p className="font-bold font-playfair text-xl">
+                <span className="text-white">Study</span>
+                <span className="text-[#c7a64b]">Nook</span>
+              </p>
+            </Link>
           </div>
         </div>
         <ul className="hidden items-center gap-4 md:flex">
           <li className="font-plus_jakarta">
-            <Link href="/" className={linkClass('/')}>Home</Link>
+            <Link href="/" className={linkClass("/")}>
+              Home
+            </Link>
           </li>
           <li className="font-plus_jakarta">
-            <Link href="/rooms" className={linkClass('/rooms')}>Rooms</Link>
+            <Link href="/rooms" className={linkClass("/rooms")}>
+              Rooms
+            </Link>
           </li>
         </ul>
         <div className="hidden items-center gap-4 md:flex font-plus_jakarta">
-         <Button className={`bg-[#0d1e1a] hover:bg-[#1f3530] text-foreground/80 hover:text-foreground transition-colors`} > <Link href="/login" className={`text-[#727971]`}>Login</Link></Button>
+          <Button
+            className={`bg-[#0d1e1a] hover:bg-[#1f3530] text-foreground/80 hover:text-foreground transition-colors`}
+          >
+            {" "}
+            <Link href="/login" className={`text-[#727971]`}>
+              Login
+            </Link>
+          </Button>
           <Link href="/signup">
             <Button className={`bg-[#c9a84c] text-black`}>Sign Up</Button>
           </Link>
