@@ -5,6 +5,8 @@ import { Link, Button } from "@heroui/react";
 import { LogoAcrobat } from "@gravity-ui/icons";
 import { MdOutlinePolymer } from "react-icons/md";
 import { usePathname } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
+import Discloser from "./Discloser";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathName = usePathname();
@@ -13,7 +15,9 @@ const Navbar = () => {
     return pathName === path ? "font-medium text-[#C9A84C]" : "text-[#727971]";
   };
 
-  
+  const { data: session } = authClient.useSession();
+
+  const user = session?.user;
 
   return (
     <nav className="sticky top-0 z-40 w-full border-b border-separator  backdrop-blur-lg bg-[#0d1e1a]">
@@ -74,19 +78,47 @@ const Navbar = () => {
               Rooms
             </Link>
           </li>
+          {user ? (
+            <>
+              <li className="font-plus_jakarta">
+                <Link href="/add-room" className={linkClass("/add-room")}>
+                  AddRoom
+                </Link>
+              </li>
+              <li className="font-plus_jakarta">
+                <Link href="/my-listings" className={linkClass("/my-listings")}>
+                  MyListings
+                </Link>
+              </li>
+              <li className="font-plus_jakarta">
+                <Link href="/my-bookings" className={linkClass("/my-bookings")}>
+                  MyBookings
+                </Link>
+              </li>
+            </>
+          ) : (
+            <></>
+          )}
         </ul>
         <div className="hidden items-center gap-4 md:flex font-plus_jakarta">
-          <Button
-            className={`bg-[#0d1e1a] hover:bg-[#1f3530] text-foreground/80 hover:text-foreground transition-colors`}
-          >
-            {" "}
-            <Link href="/login" className={`text-[#727971]`}>
-              Login
-            </Link>
-          </Button>
-          <Link href="/signup">
-            <Button className={`bg-[#c9a84c] text-black`}>Sign Up</Button>
-          </Link>
+          {user ? (
+            <>
+            <Discloser user={user}></Discloser></>
+          ) : (
+            <>
+              <Button
+                className={`bg-[#0d1e1a] hover:bg-[#1f3530] text-foreground/80 hover:text-foreground transition-colors`}
+              >
+                {" "}
+                <Link href="/login" className={`text-[#727971]`}>
+                  Login
+                </Link>
+              </Button>
+              <Link href="/signup">
+                <Button className={`bg-[#c9a84c] text-black`}>Sign Up</Button>
+              </Link>
+            </>
+          )}
         </div>
       </header>
       {isMenuOpen && (
@@ -102,15 +134,42 @@ const Navbar = () => {
                 Rooms
               </Link>
             </li>
-
-            <li className="mt-4 flex flex-col gap-2 border-t border-separator pt-4">
-              <Link href="/login" className="block py-2">
-                Login
-              </Link>
-              <Link href="/signup">
-                <Button className="w-full">Sign Up</Button>
-              </Link>
-            </li>
+            {user ? (
+              <>
+                <li className="font-plus_jakarta">
+                  <Link href="/add-room" className={linkClass("/add-room")}>
+                    AddRoom
+                  </Link>
+                </li>
+                <li className="font-plus_jakarta">
+                  <Link
+                    href="/my-listings"
+                    className={linkClass("/my-listings")}
+                  >
+                    MyListings
+                  </Link>
+                </li>
+                <li className="font-plus_jakarta">
+                  <Link
+                    href="/my-bookings"
+                    className={linkClass("/my-bookings")}
+                  >
+                    MyBookings
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="mt-4 flex flex-col gap-2 border-t border-separator pt-4">
+                  <Link href="/login" className="block py-2">
+                    Login
+                  </Link>
+                  <Link href="/signup">
+                    <Button className="w-full">Sign Up</Button>
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       )}
