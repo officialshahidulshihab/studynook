@@ -27,7 +27,7 @@ const LogInPage = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
-        const user = Object.fromEntries(formData.entries());
+        const user =Object.fromEntries(formData.entries());
     
         const { data, error } = await authClient.signIn.email({
           email:user.email,
@@ -43,6 +43,7 @@ const LogInPage = () => {
         if(error){
           toast.error(error.message);
         }
+        console.log(data, error);
     
         
       };
