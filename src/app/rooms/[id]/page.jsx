@@ -37,6 +37,7 @@ const DetailsPage = async ({ params }) => {
   });
   
     const user = session?.user;
+    const userName=session?.user?.name
   return (
     <div className="bg-[#0d1e1a] ">
       <div className="flex justify-between relative   max-w-275 mx-auto ">
@@ -95,7 +96,7 @@ const DetailsPage = async ({ params }) => {
                 ))}
               </div>
               <p className="text-[#527c74] ">
-                Listed by <span className="text-[#f0ebe0]">{owner}</span>
+                Listed by <span className="text-[#f0ebe0]">{userName}</span>
               </p>
             </div>
           </div>

@@ -16,6 +16,7 @@ const MyListingPage = async () => {
 
   return (
     <div className="bg-[#0d1e1a]">
+        {data.length===0 ?<><h2 className="text-3xl flex justify-center items-center p-40 font-semibold text-[#f0ebe0]"> No Listings Found </h2></>:
       <div className="pt-10 max-w-275 mx-auto pb-10">
         <div className="flex items-center justify-between">
           <div className="space-y-3 pt-10">
@@ -38,7 +39,7 @@ const MyListingPage = async () => {
             <Surface key={ind} item={item}></Surface>
           ))}
         </div>
-      </div>
+      </div>}
     </div>
   );
 };

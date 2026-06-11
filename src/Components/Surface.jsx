@@ -5,12 +5,13 @@ import React from "react";
 import { FaPen, FaRegClock, FaUserFriends } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { RiDeleteBinLine } from "react-icons/ri";
+import ModalEdit from "./ModalEdit";
 
 const Surface = ({ item }) => {
   const {
-    roomName,
+    name,
     description,
-    imageUrl,
+    image,
     hourlyRate,
     capacity,
     floor,
@@ -26,15 +27,15 @@ const Surface = ({ item }) => {
       <div className="flex gap-5">
         <div>
           <Image
-            src={imageUrl}
-            alt={roomName}
+            src={image}
+            alt={name}
             width={300}
             height={300}
-            className="w-50 rounded-2xl"
+            className="w-50 h-25 rounded-2xl"
           ></Image>
         </div>
         <div className="space-y-2.5">
-          <p className="text-[#f0ebe0] text-xl">{roomName}</p>
+          <p className="text-[#f0ebe0] text-xl">{name}</p>
           <p className="line-clamp-1 text-[12px] text-[#527c74]">
             {description}{" "}
           </p>
@@ -62,11 +63,12 @@ const Surface = ({ item }) => {
         </div>
         <div className="space-y-2 ">
           <div>
-            <Link href={"/"}>
+            <ModalEdit item={item}></ModalEdit>
+            {/* <Link href={"/"}>
               <Button className='bg-[#162820] px-6 text-[#f0ebe0] border border-[#2b3725]'>
-                <FaPen /> <span>Edit</span>
+                <FaPen /> <ModalEdit></ModalEdit>
               </Button>
-            </Link>
+            </Link> */}
           </div>
           <div>
             <Link href={"/"}>
