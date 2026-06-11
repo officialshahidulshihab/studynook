@@ -1,5 +1,6 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import {
   FieldError,
   Input,
@@ -10,8 +11,8 @@ import {
   TextArea,
   Button,
   Card,
- 
 } from "@heroui/react";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -25,6 +26,8 @@ const AddRoom = () => {
     "Quiet Zone",
     "Air Conditioning",
   ];
+
+  const { data: session } = authClient.useSession();
 
   const [selectedAmenities, setSelectedAmenities] = useState([]);
   const toggleAmenity = (amenity) => {
@@ -41,9 +44,13 @@ const AddRoom = () => {
 
     const roomWithAmenities = {
       ...room,
-      amenities: selectedAmenities, 
+      amenities: selectedAmenities,
       capacity: Number(room.capacity),
       hourlyRate: Number(room.hourlyRate),
+      owner: session?.user?.id, 
+      ownerName: session?.user?.name,
+      createdAt: new Date().toISOString(),
+      bookingCount: 0,
     };
 
     const res = await fetch("http://localhost:5000/api/rooms/add", {
@@ -53,7 +60,7 @@ const AddRoom = () => {
     });
     const data = await res.json();
     toast.success("Room added successfully");
-    // redirect('/my-listing')
+    
   };
   return (
     <div className="bg-[#0d1e1a]">
@@ -212,12 +219,14 @@ const AddRoom = () => {
             </div>
           </Card>
 
-          <Button
-            type="submit"
-            className="w-full bg-[#c9a84c] hover:bg-[#b8963e] text-[#0d1e1a] font-plus_jakarta font-semibold py-4 rounded-2xl text-base"
-          >
-            Publish Room
-          </Button>
+          <Link href={"/add-room"}>
+            <Button
+              type="submit"
+              className="w-full bg-[#c9a84c] hover:bg-[#b8963e] text-[#0d1e1a] font-plus_jakarta font-semibold py-4 rounded-2xl text-base"
+            >
+              Publish Room
+            </Button>
+          </Link>
         </form>
       </div>
     </div>

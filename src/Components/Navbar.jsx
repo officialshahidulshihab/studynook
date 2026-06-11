@@ -7,6 +7,7 @@ import { MdOutlinePolymer } from "react-icons/md";
 import { usePathname } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import Discloser from "./Discloser";
+import { router } from "better-auth/api";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathName = usePathname();
@@ -18,6 +19,8 @@ const Navbar = () => {
   const { data: session } = authClient.useSession();
 
   const user = session?.user;
+
+  
 
   return (
     <nav className="sticky top-0 z-40 w-full border-b border-separator  backdrop-blur-lg bg-[#0d1e1a]">
@@ -114,8 +117,8 @@ const Navbar = () => {
                   Login
                 </Link>
               </Button>
-              <Link href="/signup">
-                <Button className={`bg-[#c9a84c] text-black`}>Sign Up</Button>
+              <Link href="/signup" >
+                <Button className={`bg-[#c9a84c] text-black `}>Sign Up</Button>
               </Link>
             </>
           )}

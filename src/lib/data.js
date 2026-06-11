@@ -20,3 +20,11 @@ export const getRoomById=async(id)=>{
     const data=await res.json()
     return data
 }
+
+
+export const getUserListingRoom=async(userId)=>{
+    const res= await fetch(`http://localhost:5000/api/rooms/user/${userId}`)
+    const data= await res.json()
+    return data;
+
+}

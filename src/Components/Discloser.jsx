@@ -1,14 +1,19 @@
+"use client";
 import { authClient } from "@/lib/auth-client";
 import {ArrowRightFromSquare, Gear, Persons} from "@gravity-ui/icons";
 import {Avatar, Dropdown, Label} from "@heroui/react";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { CiCirclePlus } from "react-icons/ci";
 import { FaCalendarCheck } from "react-icons/fa";
 import { IoCubeSharp } from "react-icons/io5";
 
 const Discloser = ({user}) => {
+  const router = useRouter();
     const handleSignOut=async()=>{
         await authClient.signOut();
+         router.refresh();
     }
     return (
         <Dropdown>

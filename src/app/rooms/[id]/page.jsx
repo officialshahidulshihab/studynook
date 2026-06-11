@@ -1,3 +1,6 @@
+import { headers } from "next/headers";
+import { auth } from "@/lib/auth";
+import { authClient } from "@/lib/auth-client";
 import { getRoomById } from "@/lib/data";
 import { Button, Card, Chip, Separator } from "@heroui/react";
 import Image from "next/image";
@@ -28,6 +31,12 @@ const DetailsPage = async ({ params }) => {
     createdAt,
     owner,
   } = data;
+
+    const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  
+    const user = session?.user;
   return (
     <div className="bg-[#0d1e1a] ">
       <div className="flex justify-between relative   max-w-275 mx-auto ">
@@ -104,7 +113,9 @@ const DetailsPage = async ({ params }) => {
             <div className="mt-3 font-plus_jakarta">
               <Link href={`/rooms/${_id}`}>
                 <Button className="w-full bg-[#c9a84c] text-[#15241c]">
-                  <p>Book Now</p>
+                  {
+                    user?<p>Book Now</p>:<p>Login to Book</p>
+                  }
                 </Button>
               </Link>
             </div>
