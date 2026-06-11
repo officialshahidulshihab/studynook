@@ -48,6 +48,13 @@ const SignUpPage = () => {
     
   };
 
+  const handleGoogleSign=async()=>{
+        await authClient.signIn.social({
+          provider: 'google',
+          callbackURL: "/"
+        })
+  }
+
   
   return (
     <div className="bg-[#0d1e1a]">
@@ -158,7 +165,7 @@ const SignUpPage = () => {
             <Separator className="my-4 max-w-30 text-[12px] bg-[#2b3725]" />
           </div>
           <div className="mb-3">
-            <Button className=" bg-[#1f3530] border border-[#344333] text-[#15241c] w-full font-plus_jakarta">
+            <Button onClick={handleGoogleSign} className=" bg-[#1f3530] border border-[#344333] text-[#15241c] w-full font-plus_jakarta">
               <p className="flex items-center gap-3 ">
                 <FcGoogle />
                 <span className="text-white">Continue with Google</span>
