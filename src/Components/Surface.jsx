@@ -6,6 +6,7 @@ import { FaPen, FaRegClock, FaUserFriends } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { RiDeleteBinLine } from "react-icons/ri";
 import ModalEdit from "./ModalEdit";
+import DeleteAlert from "./DeleteAlert";
 
 const Surface = ({ item }) => {
   const {
@@ -22,6 +23,8 @@ const Surface = ({ item }) => {
     createdAt,
     owner,
   } = item;
+
+  
   return (
     <div className="bg-[#162820] border border-[#2b3725] flex justify-between items-center p-4 rounded-2xl relative">
       <div className="flex gap-5">
@@ -55,12 +58,11 @@ const Surface = ({ item }) => {
         </div>
       </div>
 
-          <Chip className="text-[#c9a84c] absolute top-3 right-30   bg-[#1c2e2b] border border-[#2b3725]">
-            $ {hourlyRate}/hr
-          </Chip>
+      <Chip className="text-[#c9a84c] absolute top-3 right-30   bg-[#1c2e2b] border border-[#2b3725]">
+        $ {hourlyRate}/hr
+      </Chip>
       <div className="flex  gap-3 ">
-        <div>
-        </div>
+        <div></div>
         <div className="space-y-2 ">
           <div>
             <ModalEdit item={item}></ModalEdit>
@@ -71,11 +73,12 @@ const Surface = ({ item }) => {
             </Link> */}
           </div>
           <div>
-            <Link href={"/"}>
-              <Button variant="danger">
+            {/* <Link href={"/"}> */}
+            {/* <Button variant="danger">
                 <RiDeleteBinLine /> <span>Delete</span>
-              </Button>
-            </Link>
+              </Button> */}
+            <DeleteAlert item={item}></DeleteAlert>
+            {/* </Link> */}
           </div>
         </div>
       </div>
