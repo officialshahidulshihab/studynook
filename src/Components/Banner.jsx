@@ -33,7 +33,7 @@ const Banner = () => {
 
         <div className="font-plus_jakarta flex  items-center gap-3 mt-3">
             <div><Link href={'/rooms'}><Button className='flex items-center bg-[#c9a84c] text-[#15241c]'><p>Explore Rooms</p> <IoIosArrowRoundForward  /></Button></Link></div>
-            <div><Button className='  bg-[#15241c]'>List Your Room</Button></div>
+            <div><Link href={'/add-room'}><Button className='  bg-[#15241c]'>List Your Room</Button></Link></div>
         </div>
        </div>
     </div>
