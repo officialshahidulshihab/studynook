@@ -7,10 +7,13 @@ import { MdOutlinePolymer } from "react-icons/md";
 import { usePathname } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import Discloser from "./Discloser";
-import { router } from "better-auth/api";
+
+import { useTheme } from "@/context/ThemeContext"; 
+import { Sun, Moon } from "lucide-react"; 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathName = usePathname();
+   const { dark, setDark } = useTheme();
 
   const linkClass = (path) => {
     return pathName === path ? "font-medium text-[#C9A84C]" : "text-[#727971]";
@@ -104,6 +107,14 @@ const Navbar = () => {
           )}
         </ul>
         <div className="hidden items-center gap-4 md:flex font-plus_jakarta">
+          <button
+            onClick={() => setDark(!dark)}
+            aria-label="Toggle theme"
+            className="p-2 rounded-full transition-colors hover:bg-white/10"
+            style={{ color: "#c7a64b" }}
+          >
+            {dark ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
           {user ? (
             <>
             <Discloser user={user}></Discloser></>

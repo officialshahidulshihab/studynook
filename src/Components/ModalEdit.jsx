@@ -37,6 +37,7 @@ const ModalEdit = ({ item }) => {
   ];
 
   const { data: session } = authClient.useSession();
+  const token = session?.token;
 
   const [selectedAmenities, setSelectedAmenities] = useState([]);
   const toggleAmenity = (amenity) => {
@@ -51,9 +52,10 @@ const ModalEdit = ({ item }) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const room = Object.fromEntries(formData.entries());
-    const res = await fetch(`http://localhost:5000/api/rooms/${_id}`, {
+    
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/rooms/${_id}`, {
       method: "PATCH",
-      headers: { "Content-type": "application/json" },
+      headers: { "Content-type": "application/json", authorization: token, },
       body: JSON.stringify(room),
     });
     const data = await res.json();

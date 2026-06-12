@@ -1,11 +1,121 @@
 @import "tailwindcss";
-@import "@heroui/styles"; 
+@import "@heroui/styles";
 
 @theme {
   --font-playfair: var(--font-playfair);
-  --font-plus_jakarta:var(--font-plus-jakarta)
+  --font-plus_jakarta: var(--font-plus-jakarta);
 }
 
-body {
+
+body,
+body[data-theme="dark"] {
   font-family: var(--font-playfair);
+  background-color: #0d1e1a;
+  color: #ffffff;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+body[data-theme="light"] {
+  background-color: #f7f3ed;
+  color: #1c1c1c;
+}
+
+
+body[data-theme="light"] nav {
+  background-color: #f0e9dd !important;
+  border-bottom: 1px solid rgba(0,0,0,0.08) !important;
+}
+
+
+body[data-theme="light"] section,
+body[data-theme="light"] div:not([class*="text"]) {
+  background-color: transparent;
+}
+
+
+body[data-theme="light"] main,
+body[data-theme="light"] #__next,
+body[data-theme="light"] .min-h-full {
+  background-color: #f7f3ed !important;
+}
+
+
+body[data-theme="light"] .bg-\[\#0d1e1a\],
+body[data-theme="light"] .bg-\[\#1a2e28\],
+body[data-theme="light"] .bg-\[\#0f2420\],
+body[data-theme="light"] .bg-\[\#112219\] {
+  background-color: #ffffff !important;
+  border: 1px solid rgba(0,0,0,0.08) !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important;
+}
+
+
+body[data-theme="light"] .relative.min-h-\[500px\],
+body[data-theme="light"] .hero-section {
+  background-color: #ede6d8 !important;
+}
+
+
+body[data-theme="light"] .text-white,
+body[data-theme="light"] h1,
+body[data-theme="light"] h2,
+body[data-theme="light"] h3,
+body[data-theme="light"] h4 {
+  color: #1c1c1c !important;
+}
+
+body[data-theme="light"] p {
+  color: #3a3a3a !important;
+}
+
+body[data-theme="light"] .text-\[\#727971\],
+body[data-theme="light"] .text-gray-400,
+body[data-theme="light"] .text-gray-500 {
+  color: #6b6b68 !important;
+}
+
+
+body[data-theme="light"] .text-\[\#c7a64b\],
+body[data-theme="light"] .text-\[\#C9A84C\],
+body[data-theme="light"] .text-\[\#c9a84c\] {
+  color: #a07d28 !important;
+}
+
+
+body[data-theme="light"] .border-separator {
+  border-color: rgba(0,0,0,0.08) !important;
+}
+
+
+body[data-theme="light"] .stats-section,
+body[data-theme="light"] .bg-\[\#0a1a16\] {
+  background-color: #ede6d8 !important;
+}
+
+
+body[data-theme="light"] .border.rounded-full,
+body[data-theme="light"] [class*="rounded-full"][class*="border"] {
+  border-color: #a07d28 !important;
+  color: #a07d28 !important;
+  background-color: transparent !important;
+}
+
+
+body[data-theme="light"] .rounded-xl,
+body[data-theme="light"] .rounded-2xl {
+  background-color: #ffffff !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important;
+}
+
+
+body[data-theme="light"] footer {
+  background-color: #e8e0d0 !important;
+  color: #3a3a3a !important;
+}
+
+body[data-theme="light"] footer p,
+body[data-theme="light"] footer span,
+body[data-theme="light"] footer a {
+  color: #5a5a57 !important;
 }

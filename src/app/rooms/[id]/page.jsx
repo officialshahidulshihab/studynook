@@ -13,10 +13,34 @@ import {
   FaUserFriends,
 } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
+import Booking from "@/Components/Booking";
+import { notFound, redirect } from "next/navigation";
+import { BsXLg } from "react-icons/bs";
 
-const DetailsPage = async ({ params }) => {
+export async function generateMetadata({ params }) {
   const { id } = await params;
-  const data = await getRoomById(id);
+
+ const data = await getRoomById(id);
+
+  if (!data) {
+    return { title: "Room Not Found" };
+  }
+
+  return {
+    title: data.name,
+    
+  };
+}
+const DetailsPage = async ({ params }) => {
+  let token = null;
+  try {
+    const tokenRes = await auth.api.getToken({ headers: await headers() });
+    token = tokenRes?.token ?? null;
+  } catch {}
+  const { id } = await params;
+  const data = await getRoomById(id, token);
+  if (!data) notFound();
+
   const {
     name,
     description,
@@ -32,12 +56,12 @@ const DetailsPage = async ({ params }) => {
     owner,
   } = data;
 
-    const session = await auth.api.getSession({
+  const session = await auth.api.getSession({
     headers: await headers(),
   });
-  
-    const user = session?.user;
-    const userName=session?.user?.name
+
+  const user = session?.user;
+  const userName = session?.user?.name;
   return (
     <div className="bg-[#0d1e1a] ">
       <div className="flex justify-between relative   max-w-275 mx-auto ">
@@ -96,31 +120,33 @@ const DetailsPage = async ({ params }) => {
                 ))}
               </div>
               <p className="text-[#527c74] ">
-                Listed by <span className="text-[#f0ebe0]">{userName}</span>
+                Listed by <span className="text-[#f0ebe0]">{owner}</span>
               </p>
             </div>
           </div>
         </div>
 
         <div className="font-plus_jakarta mt-20 pb-10 w-100 sticky top-20 self-start ">
-          <Card className="border border-[#2b3725] bg-[#0d1e1a]">
+          <Card className="border border-[#2b3725] bg-[#162820]">
             <div className="p-5 mx-auto">
               <h1 className="font-playfair text-3xl text-[#c9a84c]">
                 ${hourlyRate}
               </h1>
               <p className="text-[#527c74] text-[12px]">per hour</p>
             </div>
-            <Separator className="my-4 bg-[#2b3725]" />
+            <Separator className="my-1 bg-[#2b3725]" />
             <div className="mt-3 font-plus_jakarta">
-              <Link href={`/rooms/${_id}`}>
-                <Button className="w-full bg-[#c9a84c] text-[#15241c]">
-                  {
-                    user?<p>Book Now</p>:<p>Login to Book</p>
-                  }
-                </Button>
-              </Link>
+              {user ? (
+                <Booking data={data}></Booking>
+              ) : (
+                <Link href={"/login"}>
+                  <Button className="w-full bg-[#c9a84c] text-[#15241c]">
+                    Login to Book
+                  </Button>
+                </Link>
+              )}
             </div>
-            <Separator className="my-4 bg-[#2b3725]" />
+            <Separator className="my-2 bg-[#2b3725]" />
 
             <div className=" flex justify-between">
               <div>

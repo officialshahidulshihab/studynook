@@ -1,31 +1,46 @@
 "use client";
+
 import { authClient } from "@/lib/auth-client";
 import { AlertDialog, Button } from "@heroui/react";
-import { redirect } from "next/navigation";
-import { RiDeleteBinLine } from "react-icons/ri";
-import { toast } from "react-toastify";
+import { redirect, useRouter } from "next/navigation";
 
-const DeleteAlert = ({ item }) => {
+import { toast } from "react-toastify";
+const BookingModal = ({ item }) => {
+  const {
+    _id,
+    userId,
+    userImage,
+    userName,
+    roomId,
+    name,
+    price,
+    image,
+    date,
+    startTime,
+    endTime,
+  } = item;
+ const router = useRouter();
   
-  const { _id } = item;
-  const handleDelete = async () => {
+  const handleCancel = async () => {
+    
     const { data: tokenData } = await authClient.$fetch("/token");
-      const token = tokenData?.token;
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/rooms/${_id}`, {
+  const token = tokenData?.token;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/booking/${_id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
-        authorization: token,
+         authorization: token,
       },
     });
     const data = await res.json();
-    toast.success("Listing Deleted")
-    redirect('/my-listings')
+    toast.success("Booking cancelled");
+    router.push("/my-bookings")
   };
+
   return (
     <AlertDialog>
       <Button variant="danger">
-        <RiDeleteBinLine /> <span>Delete</span>
+        <span>Cancel</span>
       </Button>
       <AlertDialog.Backdrop>
         <AlertDialog.Container>
@@ -34,13 +49,13 @@ const DeleteAlert = ({ item }) => {
             <AlertDialog.Header>
               <AlertDialog.Icon status="danger" />
               <AlertDialog.Heading className="text-[#f0ebe0]">
-                Delete project permanently?
+                Cancel Booking?
               </AlertDialog.Heading>
             </AlertDialog.Header>
             <AlertDialog.Body>
               <p className="font-plus_jakarta">
-                This will permanently delete <strong>{item.name}</strong> and
-                all of its data. This action cannot be undone.
+                This will cancel <strong>{name}</strong> booking .This action
+                cannot be undone.
               </p>
             </AlertDialog.Body>
             <AlertDialog.Footer>
@@ -48,10 +63,10 @@ const DeleteAlert = ({ item }) => {
                 slot="close"
                 className="bg-[#162820] text-[#f0ebe0] border border-[#2b3725]"
               >
-                Cancel
+                Keep it
               </Button>
-              <Button onClick={handleDelete} slot="close" variant="danger">
-                Delete
+              <Button onClick={handleCancel} slot="close" variant="danger">
+                Cancel
               </Button>
             </AlertDialog.Footer>
           </AlertDialog.Dialog>
@@ -61,4 +76,4 @@ const DeleteAlert = ({ item }) => {
   );
 };
 
-export default DeleteAlert;
+export default BookingModal;

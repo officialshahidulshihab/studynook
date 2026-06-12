@@ -1,4 +1,5 @@
-"use client";
+"use client"
+
 import { authClient } from "@/lib/auth-client";
 import {
   FieldError,
@@ -11,6 +12,7 @@ import {
   Button,
   Card,
 } from "@heroui/react";
+
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useState } from "react";
@@ -52,13 +54,17 @@ const Form = () => {
       bookingCount: 0,
     };
 
-    const res = await fetch("http://localhost:5000/api/rooms/add", {
+    const { data: tokenData } = await authClient.$fetch("/token");
+  const token = tokenData?.token;
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/rooms/add`, {
       method: "POST",
-      headers: { "Content-type": "application/json" },
+      headers: { "Content-type": "application/json",authorization: token, },
       body: JSON.stringify(roomWithAmenities),
     });
     const data = await res.json();
     toast.success("Room added successfully");
+    redirect('/my-listings')
   };
 
   return (
@@ -209,14 +215,14 @@ const Form = () => {
         </div>
       </Card>
 
-      <Link href={"/add-room"}>
+     
         <Button
           type="submit"
           className="w-full bg-[#c9a84c] hover:bg-[#b8963e] text-[#0d1e1a] font-plus_jakarta font-semibold py-4 rounded-2xl text-base"
         >
           Publish Room
         </Button>
-      </Link>
+     
     </form>
   );
 };

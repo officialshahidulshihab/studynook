@@ -1,5 +1,5 @@
 import Form from "@/Components/Form";
-
+export const metadata = { title: "Add Room" };
 const AddRoom = () => {
   return (
     <div className="bg-[#0d1e1a]">

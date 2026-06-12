@@ -6,13 +6,17 @@ import { auth } from "@/lib/auth";
 import Link from "next/link";
 import { Button } from "@heroui/react";
 import { IoAddCircleOutline } from "react-icons/io5";
+export const metadata = { title: "My Listings" };
 
 const MyListingPage = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
   const userId = session?.user?.id;
-  const data = await getUserListingRoom(userId);
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+  const data = await getUserListingRoom(userId, token);
 
   return (
     <div className="bg-[#0d1e1a]">

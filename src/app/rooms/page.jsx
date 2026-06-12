@@ -2,6 +2,7 @@ import RoomCard from "@/Components/RoomCard";
 import SearchBar from "@/Components/SearchBar";
 import { getAllRooms } from "@/lib/data";
 import React from "react";
+export const metadata = { title: "Available Rooms" };
 
 const AllRooms = async() => {
   const allRoom=await getAllRooms();
