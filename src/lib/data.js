@@ -5,7 +5,7 @@ export const getFeaturedRooms = async () => {
 };
 
 export const getAllRooms = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/rooms`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/rooms`,{ cache: "no-store" } );
   const data = await res.json();
   return data;
 };
@@ -19,8 +19,9 @@ export const getRoomById = async (id) => {
 
 export const getUserListingRoom = async (userId, token) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/rooms/user/${userId}`, {
+    cache: 'no-store',
     headers: {
-      cache: 'no-store',
+      
       authorization: token,
     },
   });
