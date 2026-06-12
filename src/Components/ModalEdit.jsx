@@ -36,8 +36,7 @@ const ModalEdit = ({ item }) => {
     "Air Conditioning",
   ];
 
-  const { data: session } = authClient.useSession();
-  const token = session?.token;
+ 
 
   const [selectedAmenities, setSelectedAmenities] = useState([]);
   const toggleAmenity = (amenity) => {
@@ -52,6 +51,9 @@ const ModalEdit = ({ item }) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const room = Object.fromEntries(formData.entries());
+
+    const { data: tokenData } = await authClient.$fetch("/token"); 
+  const token = tokenData?.token;
     
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/rooms/${_id}`, {
       method: "PATCH",
@@ -60,8 +62,13 @@ const ModalEdit = ({ item }) => {
     });
     const data = await res.json();
     
-    toast.success("Room Updated successfully");
-    redirect('/my-listings')
+    if (res.ok) {
+  toast.success("Room Edited successfully");
+  
+  window.location.href = '/my-listings';
+} else {
+  toast.error("Failed to edit room");
+}
     
   };
   return (

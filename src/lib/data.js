@@ -20,6 +20,7 @@ export const getRoomById = async (id) => {
 export const getUserListingRoom = async (userId, token) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/rooms/user/${userId}`, {
     headers: {
+      cache: 'no-store',
       authorization: token,
     },
   });
