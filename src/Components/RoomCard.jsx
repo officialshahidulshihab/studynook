@@ -1,10 +1,11 @@
+"use client";
 import { Button, Chip } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { FaRegClock, FaUserFriends } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
-
+import { motion } from "framer-motion";
 const RoomCard = ({ room }) => {
   const {
     name,
@@ -24,6 +25,13 @@ const RoomCard = ({ room }) => {
   // const tags=amenities.map((tag,ind)=><Chip className='text-[#9d9745] border bg-[#283525] border-[#9d9745]' key={ind}>{tag}</Chip>)
 
   return (
+    <motion.div
+      whileHover={{ y: -6, scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+      className="bg-[#162820] border border-[#2b3725] rounded-2xl overflow-hidden cursor-pointer"
+    >
+      
     <div className="bg-[#162820] rounded-2xl max-w-[500]">
       <div className="relative">
         <Image
@@ -75,6 +83,7 @@ const RoomCard = ({ room }) => {
         </div>
       </div>
     </div>
+    </motion.div>
   );
 };
 

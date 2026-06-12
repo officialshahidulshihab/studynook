@@ -1,3 +1,4 @@
+"use client"
 import { Button, Chip } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,7 +8,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { RiDeleteBinLine } from "react-icons/ri";
 import ModalEdit from "./ModalEdit";
 import DeleteAlert from "./DeleteAlert";
-
+import { motion } from "framer-motion";
 const Surface = ({ item }) => {
   const {
     name,
@@ -26,6 +27,12 @@ const Surface = ({ item }) => {
 
   
   return (
+
+     <motion.div
+      whileHover={{ x: 4, borderColor: "#c9a84c" }}
+      transition={{ duration: 0.2 }}
+      className="bg-[#162820] border border-[#2b3725] flex justify-between items-center p-4 rounded-2xl relative"
+    >
     <div className="bg-[#162820] border border-[#2b3725] flex justify-between items-center p-4 rounded-2xl relative">
       <div className="flex gap-5">
         <div>
@@ -83,6 +90,8 @@ const Surface = ({ item }) => {
         </div>
       </div>
     </div>
+      
+    </motion.div>
   );
 };
 

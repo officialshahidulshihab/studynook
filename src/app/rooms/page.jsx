@@ -1,3 +1,4 @@
+import PageTransition from "@/Components/PageTransition";
 import RoomCard from "@/Components/RoomCard";
 import SearchBar from "@/Components/SearchBar";
 import { getAllRooms } from "@/lib/data";
@@ -8,6 +9,8 @@ const AllRooms = async() => {
   const allRoom=await getAllRooms();
  
   return (
+    <PageTransition>
+
     <div className="bg-[#0d1e1a]">
       <div className="pt-10 pb-10 ">
         <div className="bg-[#162820] font-plus_jakarta pt-10 pl-15 pb-10 border-b border-[#2a3525]">
@@ -33,6 +36,7 @@ const AllRooms = async() => {
        
       </div>
     </div>
+    </PageTransition>
   );
 };
 
