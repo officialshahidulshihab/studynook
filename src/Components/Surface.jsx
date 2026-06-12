@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Button, Chip } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -25,14 +25,7 @@ const Surface = ({ item }) => {
     owner,
   } = item;
 
-  
   return (
-
-     <motion.div
-      whileHover={{ x: 4, borderColor: "#c9a84c" }}
-      transition={{ duration: 0.2 }}
-      className="bg-[#162820] border border-[#2b3725] flex justify-between items-center p-4 rounded-2xl relative"
-    >
     <div className="bg-[#162820] border border-[#2b3725] flex justify-between items-center p-4 rounded-2xl relative">
       <div className="flex gap-5">
         <div>
@@ -90,8 +83,6 @@ const Surface = ({ item }) => {
         </div>
       </div>
     </div>
-      
-    </motion.div>
   );
 };
 
