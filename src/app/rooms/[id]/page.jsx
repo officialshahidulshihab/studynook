@@ -21,7 +21,7 @@ export async function generateMetadata({ params }) {
   const { id } = await params;
 
  const data = await getRoomById(id);
-
+ 
   if (!data) {
     return { title: "Room Not Found" };
   }
@@ -32,11 +32,8 @@ export async function generateMetadata({ params }) {
   };
 }
 const DetailsPage = async ({ params }) => {
-  let token = null;
-  try {
-    const tokenRes = await auth.api.getToken({ headers: await headers() });
-    token = tokenRes?.token ?? null;
-  } catch {}
+  
+  
   const { id } = await params;
   const data = await getRoomById(id, token);
   

@@ -10,12 +10,8 @@ export const getAllRooms = async () => {
   return data;
 };
 
-export const getRoomById = async (id, token) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/rooms/${id}`, {
-    headers: {
-      authorization: token,
-    },
-  });
+export const getRoomById = async (id) => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/rooms/${id}`);
   if (!res.ok) return null;
   const data = await res.json();
   return data;
