@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import { authClient } from "@/lib/auth-client";
 import {
@@ -12,6 +12,7 @@ import {
   Button,
   Card,
 } from "@heroui/react";
+
 
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -53,25 +54,21 @@ const Form = () => {
     };
 
     const { data: tokenData } = await authClient.$fetch("/token");
-    const token = tokenData?.token;
+  const token = tokenData?.token;
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/rooms/add`,
-      {
-        method: "POST",
-        headers: { "Content-type": "application/json", authorization: token },
-        body: JSON.stringify(roomWithAmenities),
-      },
-    );
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/rooms/add`, {
+      method: "POST",
+      headers: { "Content-type": "application/json",authorization: token, },
+      body: JSON.stringify(roomWithAmenities),
+    });
     const data = await res.json();
-    if (res.ok) {
-      toast.success("Room added successfully");
-      setTimeout(() => {
-        window.location.href = "/my-listings";
-      }, 1500);
-    } else {
-      toast.error("Failed to add room");
-    }
+   if (res.ok) {
+  toast.success("Room added successfully");
+  
+  window.location.href = '/my-listings';
+} else {
+  toast.error("Failed to add room");
+}
   };
 
   return (
@@ -88,7 +85,7 @@ const Form = () => {
               Room Name
             </Label>
             <Input
-              name="name"
+            name="name"
               placeholder="e.g. The Athenaeum Suite"
               className="bg-[#1a2e28] border border-[#1f3530] rounded-xl text-[#f0ebe0] placeholder-[#3a5c50] font-plus_jakarta text-sm"
             />
@@ -113,7 +110,7 @@ const Form = () => {
               Image URL
             </Label>
             <Input
-              name="image"
+             name="image"
               type="url"
               placeholder="https://images.unsplash.com/..."
               className="bg-[#1a2e28] border border-[#1f3530] rounded-xl text-[#f0ebe0] placeholder-[#3a5c50] font-plus_jakarta text-sm"
@@ -133,7 +130,7 @@ const Form = () => {
               Floor
             </Label>
             <Input
-              name="floor"
+            name="floor"
               placeholder="e.g. 3rd Floor"
               className="bg-[#1a2e28] border border-[#1f3530] rounded-xl text-[#f0ebe0] placeholder-[#3a5c50] font-plus_jakarta text-sm"
             />
@@ -145,7 +142,7 @@ const Form = () => {
               Capacity
             </Label>
             <Input
-              name="capacity"
+            name="capacity"
               type="number"
               min={1}
               placeholder="e.g. 2 people"
@@ -160,7 +157,7 @@ const Form = () => {
                 Hourly Rate (USD)
               </Label>
               <Input
-                name="hourlyRate"
+               name="hourlyRate"
                 type="number"
                 min={1}
                 placeholder="5"
@@ -222,12 +219,14 @@ const Form = () => {
         </div>
       </Card>
 
-      <Button
-        type="submit"
-        className="w-full bg-[#c9a84c] hover:bg-[#b8963e] text-[#0d1e1a] font-plus_jakarta font-semibold py-4 rounded-2xl text-base"
-      >
-        Publish Room
-      </Button>
+     
+        <Button
+          type="submit"
+          className="w-full bg-[#c9a84c] hover:bg-[#b8963e] text-[#0d1e1a] font-plus_jakarta font-semibold py-4 rounded-2xl text-base"
+        >
+          Publish Room
+        </Button>
+     
     </form>
   );
 };
