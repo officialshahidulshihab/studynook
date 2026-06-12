@@ -39,7 +39,7 @@ const DetailsPage = async ({ params }) => {
   } catch {}
   const { id } = await params;
   const data = await getRoomById(id, token);
-  if (!data) notFound();
+  
 
   const {
     name,
