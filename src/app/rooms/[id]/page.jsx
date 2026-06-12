@@ -17,25 +17,25 @@ import Booking from "@/Components/Booking";
 import { notFound, redirect } from "next/navigation";
 import { BsXLg } from "react-icons/bs";
 
-export async function generateMetadata({ params }) {
-  const { id } = await params;
+// export async function generateMetadata({ params }) {
+//   const { id } = await params;
 
- const data = await getRoomById(id);
+//  const data = await getRoomById(id);
  
-  if (!data) {
-    return { title: "Room Not Found" };
-  }
+//   if (!data) {
+//     return { title: "Room Not Found" };
+//   }
 
-  return {
-    title: data.name,
+//   return {
+//     title: data.name,
     
-  };
-}
+//   };
+// }
 const DetailsPage = async ({ params }) => {
   
   
   const { id } = await params;
-  const data = await getRoomById(id, token);
+  const data = await getRoomById(id);
   
 
   const {
