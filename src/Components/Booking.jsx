@@ -89,7 +89,7 @@ const Booking = ({ data }) => {
     toast.success("Room booked successfully!");
     setIsOpen(false);
     resetForm();
-    redirect("/my-bookings");
+    window.location.href = "/my-bookings";
   };
 
   return (

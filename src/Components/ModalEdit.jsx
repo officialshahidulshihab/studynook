@@ -36,8 +36,6 @@ const ModalEdit = ({ item }) => {
     "Air Conditioning",
   ];
 
- 
-
   const [selectedAmenities, setSelectedAmenities] = useState(amenities || []);
   const toggleAmenity = (amenity) => {
     setSelectedAmenities((selectedAmenities) =>
@@ -53,25 +51,26 @@ const ModalEdit = ({ item }) => {
     const room = Object.fromEntries(formData.entries());
     const roomWithAmenities = { ...room, amenities: selectedAmenities };
 
+    const { data: tokenData } = await authClient.$fetch("/token");
+    const token = tokenData?.token;
 
-    const { data: tokenData } = await authClient.$fetch("/token"); 
-  const token = tokenData?.token;
-    
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/rooms/${_id}`, {
-      method: "PATCH",
-      headers: { "Content-type": "application/json", authorization: token, },
-      body: JSON.stringify(roomWithAmenities),
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/rooms/${_id}`,
+      {
+        method: "PATCH",
+        headers: { "Content-type": "application/json", authorization: token },
+        body: JSON.stringify(roomWithAmenities),
+      },
+    );
     const data = await res.json();
-    
+
     if (res.ok) {
-  toast.success("Room Edited successfully");
-  
-  window.location.href = '/my-listings';
-} else {
-  toast.error("Failed to edit room");
-}
-    
+      toast.success("Room Edited successfully");
+
+      window.location.href = "/my-listings";
+    } else {
+      toast.error("Failed to edit room");
+    }
   };
   return (
     <div>
@@ -104,16 +103,12 @@ const ModalEdit = ({ item }) => {
                       <hr className="border-[#1f3530] mb-5" />
 
                       <div className="space-y-5">
-                        <TextField
-                          defaultValue={name}
-                          name="name"
-                          isRequired
-                        >
+                        <TextField defaultValue={name} name="name" isRequired>
                           <Label className="text-[#6c9e87]  font-plus_jakarta text-xs font-semibold tracking-widest uppercase">
                             Room Name
                           </Label>
                           <Input
-                          name="name"
+                            name="name"
                             placeholder="e.g. The Athenaeum Suite"
                             className="bg-[#1a2e28] border border-[#1f3530] rounded-xl text-[#f0ebe0] placeholder-[#3a5c50] font-plus_jakarta text-sm"
                           />
@@ -137,16 +132,12 @@ const ModalEdit = ({ item }) => {
                           <FieldError className="text-red-400 text-xs font-plus_jakarta" />
                         </TextField>
 
-                        <TextField
-                          defaultValue={image}
-                          name="image"
-                          isRequired
-                        >
+                        <TextField defaultValue={image} name="image" isRequired>
                           <Label className="text-[#6c9e87] font-plus_jakarta text-xs font-semibold tracking-widest uppercase">
                             Image URL
                           </Label>
                           <Input
-                          name="image"
+                            name="image"
                             type="url"
                             placeholder="https://images.unsplash.com/..."
                             className="bg-[#1a2e28] border border-[#1f3530] rounded-xl text-[#f0ebe0] placeholder-[#3a5c50] font-plus_jakarta text-sm"
@@ -168,7 +159,7 @@ const ModalEdit = ({ item }) => {
                             Floor
                           </Label>
                           <Input
-                          name="floor"
+                            name="floor"
                             placeholder="e.g. 3rd Floor"
                             className="bg-[#1a2e28] border border-[#1f3530] rounded-xl text-[#f0ebe0] placeholder-[#3a5c50] font-plus_jakarta text-sm"
                           />
@@ -184,7 +175,7 @@ const ModalEdit = ({ item }) => {
                             Capacity
                           </Label>
                           <Input
-                          name="capacity"
+                            name="capacity"
                             type="number"
                             min={1}
                             placeholder="e.g. 2 people"
@@ -203,7 +194,7 @@ const ModalEdit = ({ item }) => {
                               Hourly Rate (USD)
                             </Label>
                             <Input
-                             name="hourlyRate"
+                              name="hourlyRate"
                               type="number"
                               min={1}
                               placeholder="5"
@@ -268,7 +259,8 @@ const ModalEdit = ({ item }) => {
                     </Card>
 
                     <Link href={"/add-room"}>
-                      <Button slot="close"
+                      <Button
+                        slot="close"
                         type="submit"
                         className="w-full  bg-[#c9a84c] hover:bg-[#b8963e] text-[#0d1e1a] font-plus_jakarta font-semibold py-4 rounded-2xl text-base"
                       >
