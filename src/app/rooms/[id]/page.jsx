@@ -51,6 +51,7 @@ const DetailsPage = async ({ params }) => {
     _id,
     createdAt,
     owner,
+    ownerName
   } = data;
 
   const session = await auth.api.getSession({
@@ -117,7 +118,7 @@ const DetailsPage = async ({ params }) => {
                 ))}
               </div>
               <p className="text-[#527c74] ">
-                Listed by <span className="text-[#f0ebe0]">{owner}</span>
+                Listed by <span className="text-[#f0ebe0]">{ownerName}</span>
               </p>
             </div>
           </div>

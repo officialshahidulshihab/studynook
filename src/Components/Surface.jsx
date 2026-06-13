@@ -23,6 +23,7 @@ const Surface = ({ item }) => {
     _id,
     createdAt,
     owner,
+    ownerName
   } = item;
 
   return (
