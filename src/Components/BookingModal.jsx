@@ -25,7 +25,7 @@ const BookingModal = ({ item }) => {
     const { data: tokenData } = await authClient.$fetch("/token");
     const token = tokenData?.token;
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/booking/${_id}/cancel`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/booking/${_id?.$oid || _id}/cancel`,
       {
         method: "PATCH",
         headers: {
@@ -37,7 +37,7 @@ const BookingModal = ({ item }) => {
     const data = await res.json();
     if (res.ok) {
       toast.success("Booking cancelled");
-      
+
       window.location.href = "/my-bookings";
     } else {
       toast.error("Failed to cancel booking");

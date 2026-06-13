@@ -61,7 +61,7 @@ const Booking = ({ data }) => {
       userId: user?.id,
       userImage: user?.image,
       userName: user?.name,
-      roomId: _id,
+      roomId: _id?.$oid || _id.toString(),
       name,
       price: cost,
       image,
