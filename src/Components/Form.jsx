@@ -56,7 +56,7 @@ const Form = () => {
     const { data: tokenData } = await authClient.$fetch("/token");
   const token = tokenData?.token;
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/rooms/add`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/rooms/`, {
       method: "POST",
       headers: { "Content-type": "application/json",authorization: token, },
       body: JSON.stringify(roomWithAmenities),

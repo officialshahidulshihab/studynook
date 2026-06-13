@@ -1,5 +1,5 @@
 export const getFeaturedRooms = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/rooms/featured`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/rooms/featured`,{cache: "no-store"});
   const data = await res.json();
   return data;
 };
