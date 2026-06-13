@@ -56,7 +56,7 @@ const BookingCard = ({ item }) => {
       <div className="flex  gap-3 ">
         <div></div>
         <div className="space-y-2 ">
-          {status !== "cancelled" && (
+          {status !== "cancelled" && new Date(date) >= new Date().setHours(0,0,0,0) && (
             <div>
               <BookingModal item={item} />
             </div>
