@@ -6,21 +6,28 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { toast } from "react-toastify";
 
 const DeleteAlert = ({ item }) => {
-  
   const { _id } = item;
   const handleDelete = async () => {
     const { data: tokenData } = await authClient.$fetch("/token");
-      const token = tokenData?.token;
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/rooms/${_id}`, {
-      method: "DELETE",
-      headers: {
-        "content-type": "application/json",
-        authorization: token,
+    const token = tokenData?.token;
+    const roomId = _id?.$oid || _id;
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/rooms/${roomId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "content-type": "application/json",
+          authorization: token,
+        },
       },
-    });
+    );
     const data = await res.json();
-    toast.success("Listing Deleted")
-    redirect('/my-listings')
+    if (res.ok) {
+      toast.success("Listing Deleted");
+      redirect("/my-listings");
+    } else {
+      toast.error("Failed to delete listing");
+    }
   };
   return (
     <AlertDialog>
