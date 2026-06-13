@@ -16,7 +16,9 @@ const BookingCard = ({ item }) => {
     date,
     startTime,
     endTime,
+    status
   }=item;
+ 
   return (
     <div className="bg-[#162820] border border-[#2b3725] flex justify-between items-center p-4 rounded-2xl relative">
       <div className="flex gap-5">
