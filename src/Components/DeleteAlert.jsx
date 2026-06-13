@@ -24,7 +24,7 @@ const DeleteAlert = ({ item }) => {
     const data = await res.json();
     if (res.ok) {
       toast.success("Listing Deleted");
-      redirect("/my-listings");
+      window.location.href = "/my-listings"
     } else {
       toast.error("Failed to delete listing");
     }
