@@ -29,33 +29,29 @@ const SignUpPage = () => {
     const user = Object.fromEntries(formData.entries());
 
     const { data, error } = await authClient.signUp.email({
-      email:user.email,
-      password:user.password,
-      name:user.name,
-      image:user.image,
-      
+      email: user.email,
+      password: user.password,
+      name: user.name,
+      image: user.image,
     });
-   
 
-    if(data){
-      redirect('/')
+    if (data) {
+      toast.success("Registration successful! Please login.");
+      redirect("/login");
     }
 
-    if(error){
+    if (error) {
       toast.error(error.message);
     }
-
-    
   };
 
-  const handleGoogleSign=async()=>{
-        await authClient.signIn.social({
-          provider: 'google',
-          callbackURL: "/"
-        })
-  }
+  const handleGoogleSign = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+      callbackURL: "/",
+    });
+  };
 
-  
   return (
     <div className="bg-[#0d1e1a]">
       <div className="pb-10 max-w-275 mx-auto">
@@ -96,7 +92,10 @@ const SignUpPage = () => {
                   }}
                 >
                   <Label className="text-[#6c9e87]">Full Name</Label>
-                  <Input className="bg-[#1f3530] text-[#f0ebe0]" placeholder="Your Name" />
+                  <Input
+                    className="bg-[#1f3530] text-[#f0ebe0]"
+                    placeholder="Your Name"
+                  />
                   <FieldError />
                 </TextField>
                 <TextField isRequired name="email" type="email">
@@ -128,15 +127,14 @@ const SignUpPage = () => {
                   name="password"
                   type="password"
                   validate={(value) => {
-                    if (value.length < 8) {
+                    if (value.length < 8)
                       return "Password must be at least 8 characters";
-                    }
-                    if (!/[A-Z]/.test(value)) {
+                    if (!/[A-Z]/.test(value))
                       return "Password must contain at least one uppercase letter";
-                    }
-                    if (!/[0-9]/.test(value)) {
+                    if (!/[a-z]/.test(value))
+                      return "Password must contain at least one lowercase letter"; 
+                    if (!/[0-9]/.test(value))
                       return "Password must contain at least one number";
-                    }
                     return null;
                   }}
                 >
@@ -150,7 +148,6 @@ const SignUpPage = () => {
               </FieldGroup>
               <Fieldset.Actions>
                 <Button
-                  
                   className="bg-[#c9a84c] text-[#15241c] w-full font-plus_jakarta"
                   type="submit"
                 >
@@ -165,7 +162,10 @@ const SignUpPage = () => {
             <Separator className="my-4 max-w-30 text-[12px] bg-[#2b3725]" />
           </div>
           <div className="mb-3">
-            <Button onClick={handleGoogleSign} className=" bg-[#1f3530] border border-[#344333] text-[#15241c] w-full font-plus_jakarta">
+            <Button
+              onClick={handleGoogleSign}
+              className=" bg-[#1f3530] border border-[#344333] text-[#15241c] w-full font-plus_jakarta"
+            >
               <p className="flex items-center gap-3 ">
                 <FcGoogle />
                 <span className="text-white">Continue with Google</span>

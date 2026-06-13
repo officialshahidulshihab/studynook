@@ -31,6 +31,13 @@ const BookingCard = ({ item }) => {
         </div>
         <div className="space-y-2.5">
           <p className="text-[#f0ebe0] text-xl">{name}</p>
+          <span className={`text-xs font-plus_jakarta px-3 py-1 rounded-full font-semibold ${
+              status === "cancelled"
+                ? "bg-red-900/40 text-red-400 border border-red-800"
+                : "bg-green-900/40 text-green-400 border border-green-800"
+            }`}>
+              {status === "cancelled" ? "Cancelled" : "Confirmed"}
+            </span>
          
           <div className="flex items-center gap-4 text-[14px] text-[#527c74] font-plus_jakarta mb-4">
             <div className="flex items-center gap-2.5">
@@ -53,9 +60,11 @@ const BookingCard = ({ item }) => {
         <div></div>
         <div className="space-y-2 ">
           
-          <div>
-            <BookingModal item={item}></BookingModal>
-          </div>
+           {status !== "cancelled" && (
+        <div>
+          <BookingModal item={item} />
+        </div>
+      )}
         </div>
       </div>
     </div>
