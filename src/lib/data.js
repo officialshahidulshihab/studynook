@@ -30,7 +30,7 @@ export const getUserListingRoom = async (userId, token) => {
 };
 
 export const getAllBookings = async (id, token) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/booking/${id}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/booking/${id}`, {cache: "no-store",
     headers: {
       authorization: token,
     },
