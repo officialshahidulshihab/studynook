@@ -25,7 +25,7 @@ const BookingModal = ({ item }) => {
     
     const { data: tokenData } = await authClient.$fetch("/token");
   const token = tokenData?.token;
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/booking/${_id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/booking/${_id}/cancel`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
